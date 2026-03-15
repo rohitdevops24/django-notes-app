@@ -14,43 +14,22 @@ spec:
         app: django-app
     spec:
       containers:
-        - name: django
-          image: yourdockerhub/django-notes-app:latest
-          ports:
-            - containerPort: 8000
-          env:
-            - name: DEBUG
-              valueFrom:
-                configMapKeyRef:
-                  name: notes-config
-                  key: DEBUG
-            - name: DB_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: notes-config
-                  key: DB_NAME
-            - name: DB_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: notes-config
-                  key: DB_USER
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: notes-config
-                  key: DB_HOST
-            - name: DB_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: notes-config
-                  key: DB_PORT
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: notes-secret
-                  key: DB_PASSWORD
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: notes-secret
-                  key: SECRET_KEY
+      - name: django
+        image: rohitdevops24/noteapp:v1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+
+        envFrom:
+        - configMapRef:
+            name: notes-config
+        - secretRef:
+            name: notes-secret
+
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

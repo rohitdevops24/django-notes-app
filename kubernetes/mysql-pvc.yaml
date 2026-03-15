@@ -5,7 +5,8 @@ metadata:
   namespace: notes-app
 spec:
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
+  storageClassName: standard
